@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Agendamentos</title>
+    <link rel="shortcut icon" type="image/x-png" href="../imagens/th.png" />
+    <link rel="stylesheet" href="../css/alteraagenda.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="hiperlink-programas">
+            <a href="../">Pagina Inicial</a>
+            <a href="/html/alteradados.html">Altera dados da Sala</a>
+            <a href="/html/agendasala.html">Criar Agendamentos</a> 
+            <a href="/html/cadastro.html">Cadastrar Professores</a>
+            <a href="/html/adicionaprogramas.html">Gerenciar Programas</a>
+            <a href="/html/adicionaunidade.html">Gerenciar Unidades</a>
+            <a href="/html/unidadescurriculares.html">Unidade Curricular</a>
+        </div>
+        <h1>Agendamentos</h1>
+    </header>
+    <main>
+        <div class="filtro-container">
+    <h3>Filtro</h3>
+    <span id="btnFiltro" class="material-icons">filter_list</span>
+    <div id="filtros" class="filtros" style="display: none;">
+        <label for="filtroSala">Sala:</label>
+        <input type="text" id="filtroSala" placeholder="Nome da Sala">
+        <label for="filtroProfessor">Professor:</label>
+        <input type="text" id="filtroProfessor" placeholder="Nome do Professor">
+        <label for="filtroDataInicio">Data de Início:</label>
+        <input type="date" id="filtroDataInicio">
+        <label for="filtroDataFim">Data de Fim:</label>
+        <input type="date" id="filtroDataFim">
+        
+        <!-- Adicionando Turno e Dia da Semana -->
+        <label for="filtroTurno">Selecione o Turno:</label>
+        <select id="filtroTurno" class="form-control">
+            <option value="">Todos os Turnos</option>
+            <option value="manha">Manhã (6:00 - 13:00)</option>
+            <option value="tarde">Tarde (13:15 - 17:15)</option>
+            <option value="noite">Noite (17:15 - 23:59)</option>
+        </select>
+        
+        <label for="filtroDiaSemana">Dia da Semana:</label>
+        <select id="filtroDiaSemana" class="form-control">
+            <option value="">Todos os Dias</option>
+            <option value="0">Domingo</option>
+            <option value="1">Segunda-feira</option>
+            <option value="2">Terça-feira</option>
+            <option value="3">Quarta-feira</option>
+            <option value="4">Quinta-feira</option>
+            <option value="5">Sexta-feira</option>
+            <option value="6">Sábado</option>
+        </select>
+
+        <button id="btnAplicarFiltro">Aplicar Filtro</button>
+    </div>
+</div>
+
+        <div class="unidadeSelect">
+            <label for="unidadeSelect">Selecione a Unidade:</label>
+            <select id="unidadeSelect">
+                <option value="">Selecione uma unidade</option>
+            </select>
+            
+        </div><br><br>
+        
+
+        <div class="filtro-exclusao">
+            <h3>Excluir Agendamentos em Intervalo de Datas</h3>
+            
+            <span id="btnFiltroExclusao" class="material-icons">filter_list</span>
+            <div id="filtrosExclusao" class="filtros" style="display: none;">
+                <label for="dataInicio">Data de Início:</label>
+                <input type="date" id="dataInicio">
+                <label for="dataFim">Data de Fim:</label>
+                <input type="date" id="dataFim">
+                <button id="btnExcluirIntervalo">Excluir Agendamentos</button>
+            </div>
+            <h4 style="color: red;">CUIDADO AO EXCLUIR OS AGENDAMENTOS!</h4>
+        </div>
+        
+       <!-- <div class="filtro-exclusao">
+            <h3>Excluir Agendamentos em Intervalo de Datas</h3>
+            <label for="dataInicio">Data de Início:</label>
+            <input type="date" id="dataInicio">
+            <label for="dataFim">Data de Fim:</label>
+            <input type="date" id="dataFim">
+            <button id="btnExcluirIntervalo">Excluir Agendamentos</button>
+        </div>
+    -->
+        <br><br>
+        
+
+
+<div class="agendamentos">
+    <!-- Adicione esta parte dentro da div .agendamentos, antes da tabela -->
+<div class="select-all-container">
+    <label for="selectAllAgendamentos" >
+        <input type="checkbox" id="selectAllAgendamentos" class="selectAllAgendamentos"> Selecionar Todos
+    </label>
+</div>
+<br>
+
+    <button id="btnEditarSelecionados" style="display:none;">Editar Selecionados</button>
+    <div class="container mt-4">
+        <h2 class="text-center mt-3 mb-3" style="border-bottom: 2px solid #007BFF; border-radius: 10px;">Agendamentos</h2>
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Selecionar</th>
+                    <th>Ambiente</th>
+                    <th>Professor</th>
+                    <th>Data de Início</th>
+                    <th>Hora de Início</th>
+                    <th>Data de Fim</th>
+                    <th>Hora de Fim</th>
+                    <th>Tipo de Atividade</th>
+                    <th>Motivo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="agendamentosList"></tbody>
+        </table>
+        <div id="paginacao" class="paginacao" style="text-align: center; margin-top: 20px;"></div>
+            <button id="prevPage" onclick="mudarPagina(-1)">Página Anterior</button>
+            <button id="nextPage" onclick="mudarPagina(1)">Próxima Página</button>
+        </div>
+    </div>
+</div>
+
+    </main>
+    <br><br><br><br>
+    <footer>
+        <p>Desenvolvido pela equipe Lean Senai Gravataí</p>
+        <div id="informacaoSala" class="informacao-sala">
+            <img src="/imagens/Logotipo - FIERGS - Completo - Branco.png" alt="Clique no menu" class="imagem-informativa">
+            <img src="/imagens/Logotipo - IEL - Completo - Branco.png" alt="Clique no menu" class="imagem-informativa">
+            <img src="/imagens/Logotipo - SENAI - Completo - Branco.png" alt="Clique no menu" class="imagem-informativa">
+            <img src="/imagens/Logotipo - SESI - Completo - Branco.png" alt="Clique no menu" class="imagem-informativa">
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+    <script src="../js/alteraagenda.js"></script>
+</body>
+</html>

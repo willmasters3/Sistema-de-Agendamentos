@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Equipamentos</title>
+    <link rel="stylesheet" href="../css/gerenciarequipamentos.css">
+    <link rel="shortcut icon" type="imagex/png" href="../imagens/th.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>Gerenciar Equipamentos</h1>
+    </header>
+
+    <main class="container">
+
+        <section class="card">
+            <h2>Cadastrar Novo Monitor</h2>
+            <form id="formMonitor">
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" id="modelo" required>
+                </div>
+                <div class="form-group">
+                    <label for="polegadas">Polegadas:</label>
+                    <input type="number" id="polegadas" required>
+                </div>
+                <div class="form-group">
+                    <label for="numero_serie">Número de Série:</label>
+                    <input type="text" id="numero_serie" required>
+                </div>
+                <div class="form-group">
+                    <label for="patrimonio">Patrimônio:</label>
+                    <input type="text" id="patrimonio" required>
+                </div>
+                <button type="submit" class="btn">Cadastrar Monitor</button>
+            </form>
+        </section>
+
+        <hr>
+
+        <section class="card">
+            <h2>Associação de Equipamentos</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="unidade">Unidade:</label>
+                    <select id="unidade"></select>
+                </div>
+                <div class="form-group">
+                    <label for="tipoSala">Tipo de Sala:</label>
+                    <select id="tipoSala">
+                        <option value="">Selecione Tipo Sala</option>
+                        <option value="academico">Acadêmica</option>
+                        <option value="administrativa">Administrativa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sala">Sala:</label>
+                    <select id="sala"></select>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button onclick="carregarEquipamentos()" class="btn">Carregar Equipamentos</button>
+                <input type="text" id="filtroComputadores" placeholder="Pesquisar computadores..." class="filtro-input">
+                <input type="text" id="filtroMonitores" placeholder="Pesquisar monitores..." class="filtro-input">
+                <button onclick="associarSelecionados()" class="btn">Associar Selecionados</button>
+            </div>
+
+            <div class="equipamentos-listas">
+                <div class="equipamentos-col">
+                    <h3>Computadores Fiergs</h3>
+                    <ul id="listaComputadores" class="lista"></ul>
+                    <div id="paginacaoComputadores" class="paginacao"></div>
+                </div>
+                <div class="equipamentos-col">
+                    <h3>Monitores</h3>
+                    <ul id="listaMonitores" class="lista"></ul>
+                    <div id="paginacaoMonitores" class="paginacao"></div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="tabelaComputadoresAssociados">
+                <h3>Equipamentos Associados à Sala</h3>
+                <table id="tabelaComputadoresAssociados">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>MAC</th>
+            <th>CPU</th>
+            <th>Disco</th>
+            <th>Serial</th>
+            <th>IP</th>
+            <th>Patrimônio</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+                <p id="contadorComputadores"></p>
+            </div>
+        </section>
+
+    </main>
+
+
+
+
+   <div id="modalEdicaoMonitor" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Editar Monitor: <span id="monitorTitulo"></span></h2>
+        <form id="formEditarMonitor">
+            <input type="hidden" id="editMonitorId">
+            
+            <div class="form-group">
+                <label for="editModelo">Modelo:</label>
+                <input type="text" id="editModelo" required>
+            </div>
+            <div class="form-group">
+                <label for="editPolegadas">Polegadas:</label>
+                <input type="number" id="editPolegadas" required>
+            </div>
+            <div class="form-group">
+                <label for="editNumeroSerie">Número de Série:</label>
+                <input type="text" id="editNumeroSerie" required>
+            </div>
+            <div class="form-group">
+                <label for="editPatrimonio">Patrimônio:</label>
+                <input type="text" id="editPatrimonio" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <button type="button" id="btnRemoverAssociacao" class="btn btn-danger" style="display:none;">Remover da Sala Atual</button>
+             <button type="button" id="btnExcluirPermanentemente" class="btn btn-dark-danger">Excluir Permanentemente</button>
+        </form>
+        </div>
+</div>
+ 
+    <script src="/js/gerenciarequipamentos.js"></script>
+
+</body>
+</html>

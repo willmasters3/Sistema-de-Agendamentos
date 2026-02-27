@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Unidades Curriculares</title>
+    <link rel="shortcut icon" type="image/x-png" href="../imagens/th.png" />
+    <link rel="stylesheet" href="../css/unidadescurriculares.css"> 
+</head>
+<body>
+<header>
+    <div class="hiperlink-programas">
+        <a href="../">Página Inicial</a>
+        <a href="/html/agendasala.html">Criar Agendamentos</a> 
+        <a href="/html/alteradados.html">Alterar dados da Sala</a>
+        <a href="/html/cadastro.html">Cadastrar Professores</a>
+        <a href="/html/alteraagenda.html">Consultar Agendamento</a>
+        <a href="/html/alteradados.html">Gerenciar Sala</a>
+        <a href="/html/adicionaprogramas.html">Gerenciar Programas</a>
+        <a href="/html/adicionaunidade.html">Gerenciar Unidades</a>
+    </div><br>
+    <h1 class="headertittle">Gerenciamento Curricular</h1>
+</header>
+<main class="main-container">
+    
+    <div id="resultadoAdicionar"></div>
+     <form id="tipoAulaForm">
+        <h2>1. Adicionar Novo Tipo de Aula (Disciplina)</h2>
+        
+        <label for="id_unidade">Unidade (Minha Unidade):</label>
+        <select id="id_unidade" name="id_unidade" required>
+            <option value="">Selecione uma unidade</option>
+        </select><br><br>
+        
+        <label for="descricao">Descrição do Tipo de Aula:</label>
+        <input type="text" class="descricao" id="descricao" name="descricao" required><br><br>
+
+        <button type="submit">Adicionar e Associar</button>
+        <hr>
+    </form>
+     <form id="editarTipoAulaForm">
+        <h2>1.2 Editar Tipo de Aula & Associar Matriz</h2>
+
+        <label for="id_unidade_editar">Unidade (Filtro de Edição/Associação):</label>
+        <select id="id_unidade_editar" required>
+            <option value="">Selecione a Unidade SENAI</option>
+        </select><br><br>
+
+        <label for="tipo_aula_id">Tipo de Aula (Editar / Excluir):</label>
+        <select id="tipo_aula_id" name="tipo_aula_id" required disabled>
+            <option value="">Selecione uma Unidade SENAI primeiro</option>
+        </select>
+        
+        <div id="resultadoExcluir"></div> <label for="descricao_editar">Nova Descrição:</label>
+        <input type="text" id="descricao_editar" name="descricao_editar" placeholder="Preenchido ao selecionar o tipo" required disabled><br><br>
+
+        <button type="submit" id="btnEditar">Editar Descrição</button>
+        <button type="button" id="btnExcluir">Excluir Tipo de Aula</button>
+        <hr>
+    </form>
+    
+    <form class="tipoAulaForm1" id="tipoAulaForm1">
+        <h2>2. Adicionar Nova Unidade Curricular (Turma) <br> EM MANUTENÇÃO NAO USAR</h2>
+        <label for="unidade_uc">Unidade:</label>
+        <select id="unidade_uc" name="unidade_uc" required>
+            <option value="">Selecione uma unidade</option>
+        </select><br><br> 
+        <label for="ano">Ano:</label>
+        <input type="number" id="ano" name="ano" min="0" max="99" required placeholder="Ex: 25"><br><br>
+
+        <label for="semestre">Semestre:</label>
+        <select id="semestre" name="semestre" required>
+            <option value="1">1º Semestre</option>
+            <option value="2">2º Semestre</option>
+        </select><br><br>
+
+        <label for="turma">Turma:</label>
+        <input type="text" id="turma" name="turma" required placeholder="Digite a turma (A ou B)"><br><br>
+
+        <label for="turno">Turno:</label>
+        <select id="turno" name="turno" required>
+            <option value="1">Manhã</option>
+            <option value="2">Tarde</option>
+            <option value="3">Noite</option>
+        </select><br><br>
+
+        <label for="modulo">Módulo:</label>
+        <input type="number" id="modulo" name="modulo" min="1" max="5" required placeholder="1 a 5"><br><br>
+
+        <label for="curso">Tipo de Curso:</label>
+        <input type="number" id="curso" name="curso" min="10" max="99" required placeholder="Ex: 21"><br><br>
+
+        <button type="submit" id="btnAdicionarUC">Adicionar Unidade Curricular</button>
+        <hr>
+    </form>
+    <form id="editarUCForm">
+        <h2>3.1. Editar Detalhes da Turma (Unidade Curricular) <br> EM MANUTENÇÃO NAO USAR</h2>
+
+        <label for="unidade_uc_editar_filtro">Unidade SENAI (Filtro):</label>
+        <select id="unidade_uc_editar_filtro" required>
+            <option value="">Selecione a Unidade</option>
+            </select><br><br>
+
+        <label for="uc_para_editar">Selecione a Turma para Editar:</label>
+        <select id="uc_para_editar" name="uc_para_editar" required disabled>
+            <option value="">Selecione a Unidade SENAI primeiro</option>
+        </select><br><br>
+        
+        <hr>
+
+        <div id="camposEdicaoUC" style="display: none;">
+            <p>Preencha os novos dados:</p>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="ano_editar">Ano:</label>
+                    <input type="number" id="ano_editar" min="0" max="99" required>
+                </div>
+                <div class="col-6">
+                    <label for="semestre_editar">Semestre:</label>
+                    <select id="semestre_editar" required>
+                        <option value="1">1º Semestre</option>
+                        <option value="2">2º Semestre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="turma_editar">Turma:</label>
+                    <input type="text" id="turma_editar" required>
+                </div>
+                <div class="col-6">
+                    <label for="turno_editar">Turno:</label>
+                    <select id="turno_editar" required>
+                        <option value="1">Manhã</option>
+                        <option value="2">Tarde</option>
+                        <option value="3">Noite</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-6">
+                    <label for="modulo_editar">Módulo:</label>
+                    <input type="number" id="modulo_editar" min="1" max="5" required>
+                </div>
+                <div class="col-6">
+                    <label for="curso_editar">Tipo de Curso:</label>
+                    <input type="number" id="curso_editar" min="10" max="99" required>
+                </div>
+            </div>
+
+            <button type="submit" id="btnSalvarUC">Salvar Alterações da Turma</button>
+        </div>
+    </form>
+
+   
+
+    <form id="associarForm">
+ <h2>4. Associar Tipo de Aula à Turma (UC) <br>EM MANUTENÇÃO NAO USAR</h2>
+<div id="resultadoAssociacao"></div> 
+        
+        <label for="unidade_associacao_filtro">Unidade SENAI (Filtro):</label>
+        <select id="unidade_associacao_filtro" required>
+            <option value="">Selecione a Unidade para filtrar</option>
+        </select><br><br>
+
+        <label for="tipoAula">Tipo de Aula:</label>
+ <select id="tipoAula" name="tipoAula" required disabled> 
+ <option value="">Selecione o Filtro da Unidade primeiro</option>
+</select><br><br>
+
+<label for="unidadeCurricular">Turma (Unidade Curricular):</label>
+ <select id="unidadeCurricular" name="unidadeCurricular" required disabled>
+ <option value="">Selecione o Filtro da Unidade primeiro</option>
+ </select><br><br>
+
+ <button type="submit">Associar Tipo de Aula à UC</button>
+ </form>
+
+    <form id="dessociarForm">
+        <h2>5. Dessassociar Tipo(s) de Aula de UC <br>EM MANUTENÇÃO NAO USAR</h2>
+        <div id="resultadoDessociacao"></div> 
+        
+        <label for="unidade_dessociar_filtro">Unidade SENAI (Filtro):</label>
+    <select id="unidade_dessociar_filtro" required>
+        <option value="">Selecione a Unidade para filtrar</option>
+    </select><br><br>
+
+        <label for="unidadeDessociar">Selecione a Turma (UC):</label>
+        <select id="unidadeDessociar" name="unidadeDessociar" required disabled>
+            <option value="">Selecione uma Unidade SENAI primeiro</option>
+        </select><br><br>
+
+        <div id="tiposAssociados" style="display: none;">
+            <label for="listaTipoAulas">Tipo(s) de Aula Associado(s) para remover:</label><br>
+            <div id="listaTipoAulas">
+                </div><br>
+        </div>
+
+        <button type="submit">Dessassociar Tipos de Aula</button>
+        <br><br>
+    </form>
+
+</main>
+<script src="../js/unidadescurriculares.js"></script>
+<footer>
+    <p>Desenvolvido pela equipe Lean Senai Gravataí</p>
+</footer>
+</body>
+</html>

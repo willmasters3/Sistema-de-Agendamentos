@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sessão Remota</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    body { background-color: #1a202c; }
+    #screen {
+        max-width: 100%;
+        max-height: calc(100vh - 80px);
+        object-fit: contain;
+        border: 2px solid #4a5568;
+        border-radius: 8px;
+        background-color: #000;
+        /*ursor: none */
+    }
+</style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen text-white p-4">
+    <p id="resInfo"></p>
+
+    <div class="w-full max-w-7xl">
+        <header class="mb-4 text-center">
+            <h1 id="viewTitle" class="text-2xl font-bold">Visualizando Sessão Remota</h1>
+            <p id="status" class="text-gray-400">Conectando ao servidor...</p>
+            <button id="disconnectBtn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded hidden">
+                    Desconectar
+                </button>
+        </header>
+
+        <main class="flex items-center justify-center">
+             <img id="screen" src="" alt="Tela Remota">
+        </main>
+    </div>
+
+    <script src="../js/remote-view.js"></script>
+</body>
+</html>

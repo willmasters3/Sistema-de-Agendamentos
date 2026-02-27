@@ -1,0 +1,159 @@
+/* CSS para o formulário e outros estilos */
+@import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300..900&display=swap');
+
+/* --- LAYOUT GLOBAL --- */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    position: relative; 
+}
+body::before {
+    content: "";
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: url("/imagens/Fundo-para-reuniões-Teams---azul---corrigido.png");
+    background-size: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+header {
+    background-color: rgba(51, 51, 51, 0.8);
+    padding: 20px;
+    text-align: center;
+    color: white;
+    border-radius: 10px;
+}
+
+header h1 {
+    color: #f9f9f9;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.main-container {
+    flex: 1; 
+    padding: 20px;
+}
+
+/* --- ESTILO DO FORMULÁRIO (CARD) --- */
+
+form {
+    max-width: 800px; /* Aumentado para caber o layout de colunas */
+    width: 90%;
+    margin: 20px auto;
+    padding: 30px; /* Padding interno consistente */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos dentro do formulário */
+form h2, form h3 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- ESTILO DOS CAMPOS DE ENTRADA --- */
+
+label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #000000;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+.descricao { 
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Força a largura para a descrição principal, se necessário */
+.descricao { 
+    max-width: 100%; 
+    height: 35px; 
+}
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    box-sizing: border-box;
+}
+
+/* --- LAYOUT DE COLUNAS (GRID) --- */
+
+.row {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px; 
+    margin-bottom: 10px;
+}
+
+.col-6 {
+    flex: 1; 
+    min-width: 250px; 
+}
+
+/* --- ESTILO DOS BOTÕES --- */
+
+button {
+    padding: 10px 20px;
+    background-color: #3649f4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2737a8;
+}
+
+/* --- ELEMENTOS DO HEADER/FOOTER --- */
+
+.hiperlink-programas {
+    text-align: center;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.hiperlink-programas a {
+    color: #f7f4f4;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+footer {
+    background-color: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: 20px;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disponibilidade de Professores - Coordenador</title>
+    <link rel="stylesheet" href="/css/disponibilidade-professores.css"> 
+    
+</head>
+<body>
+    <header>
+        <h1>Disponibilidade de Professores</h1>
+    </header>
+
+    <main class="container">
+        <div class="card">
+            <h2 class="card-title">Filtro de Consulta</h2>
+            <form id="form-disponibilidade" class="form-group">
+                
+                <label for="select-unidade">Selecione a Unidade:</label>
+                <select id="select-unidade" required>
+                    <option value="">Carregando Unidades...</option>
+                </select>
+
+                <label for="select-professor">Selecione o Professor:</label>
+                <select id="select-professor" name="id_professor" required disabled>
+                    <option value="">Selecione uma Unidade Primeiro</option>
+                </select>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="data-inicio">Data Início:</label>
+                        <input type="date" id="data-inicio" required>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="data-fim">Data Fim:</label>
+                        <input type="date" id="data-fim" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="jornada-inicio">Jornada Início (Ex: 07:00):</label>
+                        <input type="time" id="jornada-inicio" value="07:00" required>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="jornada-fim">Jornada Fim (Ex: 13:00):</label>
+                        <input type="time" id="jornada-fim" value="13:00" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Verificar Disponibilidade</button>
+            </form>
+        </div>
+
+        <div class="card result-card hidden" id="disponibilidade-resultado">
+            <h2 class="card-title" id="resultado-titulo">Disponibilidade de: </h2>
+            <div id="lista-disponibilidade" class="lista-disponibilidade">
+                </div>
+            <p id="msg-sem-disponibilidade" class="alert alert-danger hidden"></p>
+            <p id="msg-erro" class="alert alert-danger hidden"></p>
+        </div>
+
+    </main>
+
+    <script src="/js/disponibilidade-professores.js"></script>
+</body>
+</html>

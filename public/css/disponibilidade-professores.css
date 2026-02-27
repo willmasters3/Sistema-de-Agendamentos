@@ -1,0 +1,164 @@
+/* Paleta de Cores Sugerida: Azul Profundo (para botões/títulos) e cinzas claros */
+
+body {
+    background-color: #f4f7f9;
+    font-family: Arial, sans-serif;
+    padding-top: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+header {
+    background-color: #0056b3; /* Azul escuro */
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do Card (Filtro e Resultado) */
+.card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #333;
+    border-bottom: 2px solid #007bff; /* Azul vibrante */
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+/* Estilo do Formulário */
+.form-group label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Garante que padding não estoure o width */
+}
+
+/* Layout responsivo simples (simulando Bootstrap grid) */
+.row {
+    display: flex;
+    gap: 20px;
+}
+.col-6 {
+    flex: 1;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff; /* Azul vibrante */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo dos Resultados */
+.result-card {
+    margin-top: 30px;
+}
+
+/* --- ALTERAÇÕES PARA O LAYOUT DE GRADE (GRID) --- */
+
+.lista-disponibilidade {
+    margin-top: 15px;
+    /* Usa CSS Grid para layout de colunas flexíveis */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Colunas adaptáveis */
+    gap: 15px; /* Espaço entre os dias */
+}
+
+.dia-disponivel {
+    background-color: #e6f7ff; /* Azul muito claro */
+    border: 1px solid #b3e6ff;
+    padding: 15px;
+    margin-bottom: 0; /* Removido para o grid controlar o espaçamento */
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dia-disponivel h3 {
+    margin-top: 0;
+    color: #007bff;
+    font-size: 1.1em; /* Um pouco menor para caber melhor */
+    border-bottom: 1px solid #b3e6ff;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* Container para garantir que cada intervalo fique em sua própria linha vertical */
+.intervalo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.intervalo {
+    display: block; /* Cada intervalo em uma nova linha */
+    background-color: #4CAF50; /* Verde de "Livre" */
+    color: white;
+    padding: 5px 8px;
+    border-radius: 3px;
+    margin-right: 0; 
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center;
+}
+/* ------------------------------------------------ */
+
+
+.hidden {
+    display: none !important;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}

@@ -1,0 +1,13 @@
+/* Estilos básicos para o corpo e fonte */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f7f9;
+}
+
+
+/* Centraliza o conteúdo do modal (complementa classes Tailwind) */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
