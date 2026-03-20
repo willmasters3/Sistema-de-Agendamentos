@@ -138,7 +138,60 @@
              <button type="button" id="btnExcluirPermanentemente" class="btn btn-dark-danger">Excluir Permanentemente</button>
         </form>
         </div>
-</div>
+    </div>
+    <div id="modalConfigComputador" class="modal" style="display:none;">
+        <div class="modal-content" style="max-width: 600px;">
+          <span class="close" onclick="fecharModalConfigComputador()">&times;</span>
+          <h2>Configurar Computador</h2>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>Nome do computador:</strong></label>
+            <input type="text" id="cfgNomeComputador" readonly>
+          </div>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>Serial:</strong></label>
+            <input type="text" id="cfgSerialComputador" readonly>
+          </div>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>IP:</strong></label>
+            <input type="text" id="cfgIpComputador" readonly>
+          </div>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>Patrimônio:</strong></label>
+            <input type="text" id="cfgPatrimonioComputador" readonly>
+          </div>
+      
+          <hr>
+      
+          <h3>Usuário administrativo temporário</h3>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>Usuário:</strong></label>
+            <input type="text" id="cfgUsernameAdmin" placeholder="Ex: alunoadmin">
+          </div>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>Senha:</strong></label>
+            <input type="text" id="cfgPasswordAdmin" placeholder="Digite a senha temporária">
+          </div>
+      
+          <div style="margin-bottom: 10px;">
+            <label><strong>Duração em minutos:</strong></label>
+            <input type="number" id="cfgDurationAdmin" placeholder="Ex: 5" min="1">
+          </div>
+      
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:15px;">
+            <button type="button" id="btnAtivarAdminTemp">Ativar / Atualizar</button>
+            <button type="button" id="btnBloquearAdminTemp">Bloquear Agora</button>
+            <button type="button" id="btnStatusAdminTemp">Consultar Status</button>
+          </div>
+      
+          <div id="cfgRetornoAdmin" style="margin-top:15px; font-weight:bold;"></div>
+        </div>
+      </div>
  
     <script src="/js/gerenciarequipamentos.js"></script>
 

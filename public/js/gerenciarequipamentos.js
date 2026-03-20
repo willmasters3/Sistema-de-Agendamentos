@@ -9,6 +9,7 @@ const closeButton = modal ? modal.querySelector('.close-button') : null;
 const btnRemoverAssociacao = document.getElementById('btnRemoverAssociacao');
 const formEditarMonitor = document.getElementById('formEditarMonitor');
 const btnExcluirPermanentemente = document.getElementById('btnExcluirPermanentemente');
+
 let monitorSalaId = null; 
 
 if (modal && closeButton) {
@@ -27,6 +28,96 @@ if (btnExcluirPermanentemente) {
             excluirMonitorPermanentemente(parseInt(monitorId), monitorPatrimonio);
         }
     });
+}
+function abrirConfigComputador(serial, nome, ip, patrimonio) {
+    document.getElementById('cfgSerialComputador').value = serial || '';
+    document.getElementById('cfgNomeComputador').value = nome || '';
+    document.getElementById('cfgIpComputador').value = ip || '';
+    document.getElementById('cfgPatrimonioComputador').value = patrimonio || '';
+
+    document.getElementById('cfgUsernameAdmin').value = 'alunoadmin';
+    document.getElementById('cfgPasswordAdmin').value = '';
+    document.getElementById('cfgDurationAdmin').value = '5';
+    document.getElementById('cfgRetornoAdmin').innerText = '';
+
+    document.getElementById('modalConfigComputador').style.display = 'block';
+}
+
+function fecharModalConfigComputador() {
+    document.getElementById('modalConfigComputador').style.display = 'none';
+}
+async function ativarUsuarioAdminTemporario() {
+    const serial = document.getElementById('cfgSerialComputador').value.trim();
+    const username = document.getElementById('cfgUsernameAdmin').value.trim();
+    const password = document.getElementById('cfgPasswordAdmin').value.trim();
+    const durationMinutes = parseInt(document.getElementById('cfgDurationAdmin').value.trim(), 10);
+
+    const retorno = document.getElementById('cfgRetornoAdmin');
+
+    if (!serial || !username || !password || !durationMinutes) {
+        retorno.innerText = 'Preencha serial, usuário, senha e duração.';
+        return;
+    }
+
+    try {
+        const response = await fetch(`/computadores/${encodeURIComponent(serial)}/senha-temporaria`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password, durationMinutes })
+        });
+
+        const data = await response.json();
+        retorno.innerText = data.message || data.error || 'Resposta recebida.';
+    } catch (error) {
+        retorno.innerText = 'Erro ao enviar comando.';
+        console.error(error);
+    }
+}
+
+async function bloquearUsuarioAdminAgora() {
+    const serial = document.getElementById('cfgSerialComputador').value.trim();
+    const username = document.getElementById('cfgUsernameAdmin').value.trim();
+    const retorno = document.getElementById('cfgRetornoAdmin');
+
+    if (!serial || !username) {
+        retorno.innerText = 'Informe o serial e o usuário.';
+        return;
+    }
+
+    try {
+        const response = await fetch(`/computadores/${encodeURIComponent(serial)}/bloquear-usuario`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username })
+        });
+
+        const data = await response.json();
+        retorno.innerText = data.message || data.error || 'Resposta recebida.';
+    } catch (error) {
+        retorno.innerText = 'Erro ao bloquear usuário.';
+        console.error(error);
+    }
+}
+
+async function consultarStatusUsuarioAdmin() {
+    const serial = document.getElementById('cfgSerialComputador').value.trim();
+    const username = document.getElementById('cfgUsernameAdmin').value.trim();
+    const retorno = document.getElementById('cfgRetornoAdmin');
+
+    if (!serial || !username) {
+        retorno.innerText = 'Informe o serial e o usuário.';
+        return;
+    }
+
+    try {
+        const response = await fetch(`/computadores/${encodeURIComponent(serial)}/status-usuario?username=${encodeURIComponent(username)}`);
+        const data = await response.json();
+
+        retorno.innerText = data.message || JSON.stringify(data);
+    } catch (error) {
+        retorno.innerText = 'Erro ao consultar status.';
+        console.error(error);
+    }
 }
 function abrirModalEdicaoMonitor(event) {
     const button = event.currentTarget;
@@ -241,10 +332,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('filtroMonitores').addEventListener('input', () => renderMonitores());
     document.getElementById('sala').addEventListener('change', carregarAssociados);
     
-    // Novo: Listener para o formulário de edição do monitor
     if (formEditarMonitor) {
         formEditarMonitor.addEventListener('submit', salvarEdicaoMonitor);
     }
+
+    const btnAtivar = document.getElementById('btnAtivarAdminTemp');
+    const btnBloquear = document.getElementById('btnBloquearAdminTemp');
+    const btnStatus = document.getElementById('btnStatusAdminTemp');
+
+    if (btnAtivar) btnAtivar.addEventListener('click', ativarUsuarioAdminTemporario);
+    if (btnBloquear) btnBloquear.addEventListener('click', bloquearUsuarioAdminAgora);
+    if (btnStatus) btnStatus.addEventListener('click', consultarStatusUsuarioAdmin);
 });
 
 // =======================================================
@@ -389,8 +487,28 @@ async function carregarAssociados() {
                 <td>${c.SerialNumber}</td>
                 <td>${c.endereco_ip}</td>
                 <td>${c.patrimonio || '-'}</td>
-                <td><button onclick="removerComputador(${c.id_computador}, ${salaId})">Remover</button></td>
+                <td>
+                    <button class="btn-config-pc">Config</button>
+                    <button class="btn-remover-pc">Remover</button>
+                </td>
             `;
+        
+            const btnConfig = tr.querySelector('.btn-config-pc');
+            const btnRemover = tr.querySelector('.btn-remover-pc');
+        
+            btnConfig.addEventListener('click', () => {
+                abrirConfigComputador(
+                    c.SerialNumber || '',
+                    c.nome_computador || '',
+                    c.endereco_ip || '',
+                    c.patrimonio || ''
+                );
+            });
+        
+            btnRemover.addEventListener('click', () => {
+                removerComputador(c.id_computador, salaId);
+            });
+        
             tabela.appendChild(tr);
         });
 

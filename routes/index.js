@@ -1370,7 +1370,7 @@ router.post('/adicionarPrograma', async (req, res) => {
         res.status(500).send('Erro ao adicionar o programa.');
     }
 });
-// insere nova sala na unidade existente tem que arrumar este codigo 
+// insere nova sala na unidade existente tem que arrumar este codigo |  status ok
 router.post('form-adicionar-salas', async (req, res) =>{
     const {unidadeAdicionarSala,  novaSala} = req.body;
 
@@ -2689,6 +2689,102 @@ router.get('/salas/detalhes/:idSala', async (req, res) => {
         console.error('Erro ao buscar detalhes da sala:', error);
         res.status(500).send('Erro ao buscar detalhes da sala.');
     }
+});
+
+// rotas do agente para administração de usuarios temporario para os alunos
+router.post('/computadores/:serial/senha-temporaria', async (req, res) => {
+    const { serial } = req.params;
+    const { username, password, durationMinutes } = req.body;
+
+    const connectedAgents = req.connectedAgents;
+
+    if (!connectedAgents) {
+        return res.status(500).json({ error: 'connectedAgents não disponível na requisição.' });
+    }
+
+    if (!username || !password || !durationMinutes) {
+        return res.status(400).json({ error: 'username, password e durationMinutes são obrigatórios.' });
+    }
+
+    const agentInfo = connectedAgents.get(serial);
+
+    if (!agentInfo || !agentInfo.ws || agentInfo.ws.readyState !== 1) {
+        return res.status(404).json({ error: 'Agente desconectado ou não encontrado.' });
+    }
+
+    const command = {
+        type: 'admin_create_or_update_user',
+        username,
+        password,
+        durationMinutes: parseInt(durationMinutes, 10)
+    };
+
+    agentInfo.ws.send(JSON.stringify(command));
+
+    console.log(`[ADMIN] Enviado para ${serial}:`, command);
+    return res.status(200).json({ message: 'Comando de criação/atualização enviado com sucesso.' });
+});
+
+router.post('/computadores/:serial/bloquear-usuario', async (req, res) => {
+    const { serial } = req.params;
+    const { username } = req.body;
+
+    const connectedAgents = req.connectedAgents;
+
+    if (!connectedAgents) {
+        return res.status(500).json({ error: 'connectedAgents não disponível na requisição.' });
+    }
+
+    if (!username) {
+        return res.status(400).json({ error: 'username é obrigatório.' });
+    }
+
+    const agentInfo = connectedAgents.get(serial);
+
+    if (!agentInfo || !agentInfo.ws || agentInfo.ws.readyState !== 1) {
+        return res.status(404).json({ error: 'Agente desconectado ou não encontrado.' });
+    }
+
+    const command = {
+        type: 'admin_disable_user',
+        username
+    };
+
+    agentInfo.ws.send(JSON.stringify(command));
+
+    console.log(`[ADMIN] Enviado para ${serial}:`, command);
+    return res.status(200).json({ message: 'Comando de bloqueio enviado com sucesso.' });
+});
+
+router.get('/computadores/:serial/status-usuario', async (req, res) => {
+    const { serial } = req.params;
+    const { username } = req.query;
+
+    const connectedAgents = req.connectedAgents;
+
+    if (!connectedAgents) {
+        return res.status(500).json({ error: 'connectedAgents não disponível na requisição.' });
+    }
+
+    if (!username) {
+        return res.status(400).json({ error: 'username é obrigatório.' });
+    }
+
+    const agentInfo = connectedAgents.get(serial);
+
+    if (!agentInfo || !agentInfo.ws || agentInfo.ws.readyState !== 1) {
+        return res.status(404).json({ error: 'Agente desconectado ou não encontrado.' });
+    }
+
+    const command = {
+        type: 'admin_get_user_status',
+        username
+    };
+
+    agentInfo.ws.send(JSON.stringify(command));
+
+    console.log(`[ADMIN] Enviado para ${serial}:`, command);
+    return res.status(200).json({ message: `Consulta enviada para o agente ${serial}.` });
 });
 
 module.exports = router;
